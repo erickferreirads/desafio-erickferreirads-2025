@@ -65,3 +65,38 @@ describe('Abrigo de Animais - Testes Adicionais', () => {
   });
 
 });
+
+describe('Abrigo de Animais - Testes Extras Loco', () => {
+
+ test('Deve permitir que Loco seja adotado pela pessoa 2 se ela já tiver um animal', () => {
+  const resultado = new AbrigoAnimais().encontraPessoas(
+    'LASER',
+    'CAIXA,NOVELO,SKATE,RATO', 
+    'Bola,Loco' 
+  );
+  
+  expect(resultado.lista[0]).toBe('Bola - pessoa 2');
+  expect(resultado.lista[1]).toBe('Loco - pessoa 2');
+  expect(resultado.erro).toBeFalsy();
+});
+
+test('Deve permitir que Loco seja adotado pela pessoa 1 se ela já tiver um animal', () => {
+  const resultado = new AbrigoAnimais().encontraPessoas(
+    'RATO,BOLA,SKATE', 
+    'LASER',           
+    'Rex,Loco'         
+  );
+
+  expect(resultado.lista[0]).toBe('Loco - pessoa 1');
+  expect(resultado.lista[1]).toBe('Rex - pessoa 1');
+  expect(resultado.erro).toBeFalsy();
+});
+
+  test('Não deve permitir que Loco seja adotado se for o primeiro animal', () => {
+    const resultado = new AbrigoAnimais().encontraPessoas(
+      'RATO,SKATE', 'LASER', 'Loco');
+      
+    expect(resultado.lista[0]).toBe('Loco - abrigo');
+    expect(resultado.erro).toBeFalsy();
+  });
+});
